@@ -1,23 +1,18 @@
 import streamlit as st
+from snowflake.snowpark import Session
 
-# 🚀 Importar Snowpark
-try:
-    # Caso 1: Streamlit dentro de Snowflake
-    from snowflake.snowpark.context import get_active_session
-    session = get_active_session()
-except ImportError:
-    # Caso 2: Streamlit fuera de Snowflake (ej. GitHub o Streamlit Cloud)
-    from snowflake.snowpark import Session
-    connection_parameters = {
-        "account": st.secrets["snowflake"]["account"],
-        "user": st.secrets["snowflake"]["user"],
-        "password": st.secrets["snowflake"]["password"],
-        "role": st.secrets["snowflake"]["role"],
-        "warehouse": st.secrets["snowflake"]["warehouse"],
-        "database": st.secrets["snowflake"]["database"],
-        "schema": st.secrets["snowflake"]["schema"]
-    }
-    session = Session.builder.configs(connection_parameters).create()
+# 🚀 Conexión manual con Snowflake usando secrets.toml
+connection_parameters = {
+    "account": st.secrets["snowflake"]["account"],
+    "user": st.secrets["snowflake"]["user"],
+    "password": st.secrets["snowflake"]["password"],
+    "role": st.secrets["snowflake"]["role"],
+    "warehouse": st.secrets["snowflake"]["warehouse"],
+    "database": st.secrets["snowflake"]["database"],
+    "schema": st.secrets["snowflake"]["schema"]
+}
+
+session = Session.builder.configs(connection_parameters).create()
 
 # 🚀 UI principal
 st.title(f"Customize Your Smoothie! :cup_with_straw: (Streamlit {st.__version__})")
