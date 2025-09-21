@@ -1,5 +1,5 @@
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
+##from snowflake.snowpark.context import get_active_session
 
 st.title(f"Customize Your Smoothie! :cup_with_straw: {st.__version__}")
 st.write("Create your custom smoothie!")
